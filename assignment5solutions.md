@@ -198,7 +198,7 @@ oddsRatio <- function(df){
 oddsRatio(df)
 ```
 
-    ## [1] 17
+    ## [1] 34
 
 Use iteration to calculate multiple odds ratios (30 points)
 -----------------------------------------------------------

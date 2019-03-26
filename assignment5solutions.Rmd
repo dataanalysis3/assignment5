@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 # Switching on caching to make things faster (don't commit cache files on Github).
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(cache = FALSE)
 ```
 
 In this assignment we will revisit the data on ethnic intermarriage from assignment 2. First we need to read and join the data. I provide the code for this; as usual you'll need to add the file paths.
