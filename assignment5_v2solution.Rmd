@@ -1,0 +1,93 @@
+---
+title: "Statistical assignment 5, version 2"
+author: "[add your name here] [add your candidate number here - mandatory]"
+date: "[add date here]"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+# Please note these options.
+# This tells R Markdown that we want to show code in the output document.
+knitr::opts_chunk$set(echo = TRUE)
+# Switching off messages and warnings in the output document. 
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+# Switching on caching to make things faster (don't commit cache files on Github).
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+## Factors (10 points)
+
+```{r}
+colour <- c(rep("Green", 3), rep("Red", 7), rep("Yellow", 5))
+```
+
+Convert *colour* into a factor with the levels in the following order: "Yellow", "Red", "Green".
+
+```{r}
+colour <- factor(colour, levels = c("Yellow", "Red", "Green"))
+```
+
+## Vectorised functions (20 points)
+
+You need to complete the file path here.
+
+```{r}
+library(tidyverse)
+Stable <- read_tsv("C:\\Users\\ab789\\datan3_2019\\data\\UKDA-6614-tab\\tab\\ukhls_wx\\xwavedat.tab")
+```
+
+Create a vector of lengths of variable names in the *Stable* data frame. (For example, "pidp" has length 4 as it has four characters). Calculate the average length of the variable name.
+
+```{r}
+nchar(colnames(Stable))
+mean(nchar(colnames(Stable)))
+```
+
+## Functions (20 points)
+
+In the Understanding Society data -9 often signifies missing values. For example:
+
+```{r}
+table(Stable$sex)
+
+```
+
+Write a function that takes a vector as an argument, converts -9 to NA and returns the recoded vector. Test it with the *sex* variable.
+
+```{r}
+codeNA <- function(x){
+        x[x == -9] <- NA
+        x
+}
+table(Stable$sex, useNA = "always")
+table(codeNA(Stable$sex), useNA = "always")
+
+```
+
+## For() loops (20 points)
+
+Write a for() loop to count the number of columns in Stable that contain at least one occurence of -9. Return this number.
+
+```{r}
+n = 0
+
+for (i in colnames(Stable)) {
+     if (-9 %in% Stable[[i]]) {n <- n + 1}    
+}
+n
+
+```
+
+## map() functions (30 points)
+
+Now perform the same operation as in the previous question using the map() family of functions
+
+```{r}
+minusNine <- function(x){
+        -9 %in% x
+}
+map_lgl(Stable, minusNine)
+map_lgl(Stable, minusNine) %>% sum()
+
+```
